@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "test-maven"
+    }
+    stages {
+        stage ('Compile Stage') {
+
+            steps {
+                    git 'https://github.com/anveshpanjala/game-of-life.git'
+                    sh 'mvn clean compile'
+                }
+            }
+
+        stage ('Testing Stage') {
+
+            steps {
+                git 'https://github.com/anveshpanjala/game-of-life.git'
+                    sh 'mvn test'
+                }
+            }
+        
+
+
+        stage ('Package Stage') {
+            steps {
+                git 'https://github.com/anveshpanjala/game-of-life.git'
+                    sh 'mvn package'
+                }
+            }
+        }
+    }
